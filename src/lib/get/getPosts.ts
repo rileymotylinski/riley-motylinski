@@ -1,13 +1,14 @@
 import { PostData } from "@/src/app/api/posts/route";
 
 export async function getPost(): Promise<PostData[]> {
-    let headers = new Headers();
-    headers.set("Content-Type", "application/json");
+    const res = await fetch("http://localhost:3000/api/posts");
 
-    let req = new Request("http://localhost:3000/api/posts", {
-        method: "GET",
-        headers: headers
-    });
-    
-    return (await fetch(req)).json()
+    if (!res.ok) {
+        throw new Error("Failed to fetch posts");
+    }
+
+    // getting json, returning as PostData[] because we validated in /api/posts/route.ts
+    const data = await res.json();
+
+    return data;
 }

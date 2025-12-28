@@ -21,11 +21,26 @@ export const data: PostData[] = [
 ]
 
 export async function GET(request: NextRequest) {
-  // have to parse as json
+  // have to parse as json, zod can't parse strings
+  // pretty roundabout right now, but will be useful later wehn our db returns strings
   let json = JSON.parse(JSON.stringify(data));
 
+  // validating data
   let parsedData = z.parse(z.array(PostDataSchema), json)
-  return Response.json({parsedData});
-  
-  
+  // returns as readable json for frontend
+  return Response.json(parsedData);
+}
+
+export async function POST(request: NextRequest) {
+  let response = await request.json()
+  // validating data
+  let result = z.parse(PostDataSchema,response);
+  // will insert into db here
+  // probably some error handling at some point
+
+
+  return new Response("Successfully made post", {
+    status: 200
+  })
+  // should generate ID here
 }

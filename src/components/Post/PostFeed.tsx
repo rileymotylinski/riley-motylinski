@@ -1,18 +1,20 @@
 import type { FC } from "react";
 import { PostPreview } from "./PostPreview";
-import { PostData } from "@/src/app/api/posts/route";
 import { getPost } from "@/src/lib/get/getPosts";
 
-
-
 export const PostFeed: FC = async () => {
-    let posts: PostData[] = await getPost();
+    const res = await getPost();
+    
     return <div className="w-1/2">
-        {posts.map((post: PostData) => (
+        {res.map((post) => (
             <div key={post.id}>
                 <PostPreview post={post} />
             </div>
         ))}
     </div>
+
+    
+
+    
     
 }
