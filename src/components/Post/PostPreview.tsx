@@ -1,17 +1,18 @@
 import type { FC } from "react";
-import type { PostData } from "./Post";
-import { Tag } from "./Tag";
+import { Tag } from "../Tag";
+import { PostData } from "@/src/pages/api/posts";
 
 type Props = {
     post: PostData
 }
 
-
-
 export const PostPreview: FC<Props> = ({ post }) => {
-    return  <div className="m-4 p-3">
-        <p className="text-xl hover:underline">{post.title}</p>
-        <div className="text-md">{post.date.toLocaleDateString()}</div>
+    return <div className="m-4 p-3">
+        <div className="hover:underline">
+            <p className="text-xl">{post.title}</p>
+            <div className="text-md">{post.date}</div>
+        </div>
+        
         <div className="mt-2 mb-2">
             {post.tags.map((tag: string) => (
             <span key={tag}><Tag tag={tag} /></span>

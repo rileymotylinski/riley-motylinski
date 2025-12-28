@@ -2,7 +2,7 @@
 
 import type { FC } from "react";
 import { useEffect, useState } from "react";
-import { PostSearch } from "./PostSearch";
+import { PostSearch } from "./Post/PostSearch";
 
 export const Toolbar: FC = () => {
     const [hidden, setHidden] = useState(false);
