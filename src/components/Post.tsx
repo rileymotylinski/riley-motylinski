@@ -3,6 +3,7 @@ import type { FC } from "react";
 export type PostData = {
     id: string,
     title: string,
+    tags: string[],
     date: Date,
     content: string
 }
