@@ -1,6 +1,4 @@
-import { PostData } from "../../pages/api/posts";
-import { PostDataSchema } from "../../pages/api/posts";
-import * as z from "zod";
+import { PostData } from "@/src/app/api/posts/route";
 
 export async function getPost(): Promise<PostData[]> {
     let headers = new Headers();
@@ -10,8 +8,6 @@ export async function getPost(): Promise<PostData[]> {
         method: "GET",
         headers: headers
     });
-
-    let res = await ((await fetch(req)).json());
-
-    return z.parse(z.array(PostDataSchema), res);
+    
+    return (await fetch(req)).json()
 }

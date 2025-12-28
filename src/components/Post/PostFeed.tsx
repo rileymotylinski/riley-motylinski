@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { PostPreview } from "./PostPreview";
-import { PostData } from "@/src/pages/api/posts";
+import { PostData } from "@/src/app/api/posts/route";
 import { getPost } from "@/src/lib/get/getPosts";
 
 

@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { Tag } from "../Tag";
-import { PostData } from "@/src/pages/api/posts";
+import { PostData } from "@/src/app/api/posts/route";
 
 type Props = {
     post: PostData

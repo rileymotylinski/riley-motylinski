@@ -1,6 +1,6 @@
 import type { FC } from "react";
 
-import { PostFeed } from "./Post/PostFeed";
+import { PostFeed } from "./post/PostFeed";
 
 export const Body: FC = () => {
     return (

@@ -1,4 +1,4 @@
-import { PostData } from "@/src/pages/api/posts";
+import { PostData } from "@/src/app/api/posts/route";
 import type { FC } from "react";
 
 
