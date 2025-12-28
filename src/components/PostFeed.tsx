@@ -6,10 +6,14 @@ import type { PostData } from "./Post";
 type Props = {
     posts: PostData[]
 }
+
 export const PostFeed: FC<Props> = ({ posts }) => {
-    return <>
-        {posts.map((post: PostData) => {
-            <PostPreview post={post} />
-        })}
-    </> 
+    return <div className="w-1/2">
+        {posts.map((post: PostData) => (
+            <div key={post.id}>
+                <PostPreview post={post} />
+            </div>
+        ))}
+    </div>
+    
 }

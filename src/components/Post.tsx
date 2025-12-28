@@ -1,9 +1,10 @@
 import type { FC } from "react";
 
 export type PostData = {
-    title: String,
+    id: string,
+    title: string,
     date: Date,
-    content: String
+    content: string
 }
 
 export const Post: FC<PostData> = ({ title, date, content}) => {
