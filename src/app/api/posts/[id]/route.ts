@@ -27,17 +27,29 @@ export const data: PostData[] = [
 // we also destructure right here to only get the params field from the full parent element
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   let { id } = await params;
-  let index = parseInt(id)-1;
-  let entry = data[index];
 
-  // have to parse as json, zod can't parse strings
-  // pretty roundabout right now, but will be useful later wehn our db returns strings
-  let json = JSON.parse(JSON.stringify(data[0]));
+  // db logic goes HERE
+  let result = parseInt(id);
+  if (!result || result < 0) {
+    return Response.json({ message: "Invalid Post ID"})
+  // checking if id is in posts
+  } else if (result > 0 && result <= data.length ) {
+    // have to parse as json, zod can't parse strings
+    // pretty roundabout right now, but will be useful later when our db returns strings
+    let json = JSON.parse(JSON.stringify(data[result-1]));
 
-  // validating data
-  let parsedData = PostDataSchema.parse(json)
-  // returns as readable json for frontend
-  return Response.json(parsedData);
+    // validating data
+    let parsedData = PostDataSchema.parse(json)
+    // returns as readable json for frontend
+    return Response.json(parsedData);
+
+  } else {
+    return Response.json({ message: "Post does not exist"})
+  }
+  
+  
+
+  
 }
 
 export async function POST(request: NextRequest) {
@@ -46,10 +58,10 @@ export async function POST(request: NextRequest) {
   let result = PostDataSchema.parse(response);
   // will insert into db here
   // probably some error handling at some point
-
+  // should generate ID here?
 
   return new Response("Successfully made post", {
     status: 200
   })
-  // should generate ID here
+  
 }
