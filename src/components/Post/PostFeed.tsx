@@ -7,9 +7,11 @@ export const PostFeed: FC = async () => {
     let posts: PostData[] = [];
     for (let i = 1; i <= 3; i++) {
         const res = await getPost(i.toString());
-        posts.push(res);
+        if (res.ok) {
+            posts.push(res.data);
+        }
+        
     }
-    
     
     return <div className="w-1/2">
         {posts.map((post: PostData, index) => (

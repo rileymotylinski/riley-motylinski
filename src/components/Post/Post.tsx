@@ -9,13 +9,11 @@ type Props = {
 }
 
 
-export const Post: FC<Props> = ({ post }) => {
-    const params = useParams<{ id: string }>()
 
+export const Post: FC<Props> = ({ post }) => {
     return <div>
         <div>{post.title}</div>
-        <div>{ params.id }</div>
-        <div>{new Date(post.date).getFullYear()}</div>
+        <div>{new Date(post.date).toString()}</div>
         <div>{post.content}</div>
     </div>
 }

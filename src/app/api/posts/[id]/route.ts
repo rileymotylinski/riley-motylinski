@@ -16,7 +16,7 @@ let lorem = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque fau
 
 export const data: PostData[] = [
     { id: "1", title: "This is a test", tags: ["programming"], date: new Date().toJSON(), content: lorem },
-    { id: "2", title: "This is test #2",tags: ["books", "motion"], date: new Date().toJSON(), content: lorem },
+    { id: "2", title: "This is test #2",tags: ["books", "motion"], date: new Date().toJSON(), content: "lorem" },
     { id: "3", title: "Final Test", tags: ["movie", "review"], date: new Date().toJSON(), content: lorem }
 ]
 
@@ -29,8 +29,9 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
   // db logic goes HERE
   let result = parseInt(id);
+  let resp = new Response();
   if (!result || result < 0) {
-    return Response.json({ message: "Invalid Post ID"})
+    return Response.json({ message: "Invalid Post ID"}, {status: 500})
   // checking if id is in posts
   } else if (result > 0 && result <= data.length ) {
     // have to parse as json, zod can't parse strings
@@ -43,7 +44,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     return Response.json(parsedData);
 
   } else {
-    return Response.json({ message: "Post does not exist"})
+    return Response.json({ message: "Post does not exist"}, {status: 500})
   }
   
 }
