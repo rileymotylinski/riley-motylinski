@@ -1,20 +1,21 @@
 import type { FC } from "react";
 import { PostPreview } from "./PostPreview";
-import { getPost } from "@/src/lib/get/getPosts";
+import { getPost } from "@/src/lib/get/getPost";
+import { PostData } from "@/src/app/api/posts/[id]/route";
 
 export const PostFeed: FC = async () => {
-    const res = await getPost();
+    let posts: PostData[] = [];
+    for (let i = 1; i <= 3; i++) {
+        const res = await getPost(i.toString());
+        posts.push(res);
+    }
+    
     
     return <div className="w-1/2">
-        {res.map((post) => (
-            <div key={post.id}>
+        {posts.map((post: PostData, index) => (
+            <div key={`${index}-${post.id}`}>
                 <PostPreview post={post} />
             </div>
         ))}
     </div>
-
-    
-
-    
-    
 }

@@ -1,4 +1,4 @@
-import { PostData } from "@/src/app/api/posts/route";
+import { PostData } from "@/src/app/api/posts/[id]/route";
 
 export async function createPost(post: PostData): Promise<Response> {
 

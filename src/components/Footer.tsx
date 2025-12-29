@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import GithubLogo from "./static/github-mark.png";
 import LinkedInLogo from "./static/linkedInLogo.png";

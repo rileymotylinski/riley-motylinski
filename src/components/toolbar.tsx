@@ -6,7 +6,8 @@ import { PostSearch } from "./post/PostSearch";
 
 export const Toolbar: FC = () => {
     const [hidden, setHidden] = useState(false);
-    // use effect means it's always updating
+
+    // use effect means it triggers based on changes in dependency array; an empty array implies it only triggers on render
     useEffect(() => {
         const threshold = 200; // pixels scrolled before hiding
 

@@ -1,3 +1,4 @@
+import { Post } from "@/src/components/post/Post";
 import { NextRequest } from "next/server";
 import * as z from "zod"; 
 
@@ -16,17 +17,25 @@ let lorem = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque fau
 
 export const data: PostData[] = [
     { id: "1", title: "This is a test", tags: ["programming"], date: new Date().toJSON(), content: lorem },
-    { id: "2", title: "This is test #2",tags: ["books", "review"], date: new Date().toJSON(), content: lorem },
+    { id: "2", title: "This is test #2",tags: ["books", "motion"], date: new Date().toJSON(), content: lorem },
     { id: "3", title: "Final Test", tags: ["movie", "review"], date: new Date().toJSON(), content: lorem }
 ]
 
-export async function GET(request: NextRequest) {
+// basically destructuring an object which has a specific field with params as id: string
+// this keeps our code generic as we add more to the incoming request, it remains the same
+// as we say "I only care about these members and nothing else"
+// we also destructure right here to only get the params field from the full parent element
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  let { id } = await params;
+  let index = parseInt(id)-1;
+  let entry = data[index];
+
   // have to parse as json, zod can't parse strings
   // pretty roundabout right now, but will be useful later wehn our db returns strings
-  let json = JSON.parse(JSON.stringify(data));
+  let json = JSON.parse(JSON.stringify(data[0]));
 
   // validating data
-  let parsedData = z.parse(z.array(PostDataSchema), json)
+  let parsedData = PostDataSchema.parse(json)
   // returns as readable json for frontend
   return Response.json(parsedData);
 }
@@ -34,7 +43,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   let response = await request.json()
   // validating data
-  let result = z.parse(PostDataSchema,response);
+  let result = PostDataSchema.parse(response);
   // will insert into db here
   // probably some error handling at some point
 

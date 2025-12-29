@@ -6,11 +6,9 @@ export const PostSearch: FC = () => {
     const [postName, setPostName]= useState("");
     
     return (
-      
         <form>
             <input
                 type="text"
-            
                 id="post-name"
                 name="post-name"
                 className="hover:bg-gray-700 hover:border-b-blue-600/90 hover:border-b"
