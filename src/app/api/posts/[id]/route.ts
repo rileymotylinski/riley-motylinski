@@ -1,4 +1,3 @@
-import { Post } from "@/src/components/post/Post";
 import { NextRequest } from "next/server";
 import * as z from "zod"; 
 
@@ -46,9 +45,6 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   } else {
     return Response.json({ message: "Post does not exist"})
   }
-  
-  
-
   
 }
 
