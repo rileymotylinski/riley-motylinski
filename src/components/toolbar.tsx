@@ -21,7 +21,7 @@ export const Toolbar: FC = () => {
     }, []);
 
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-17">
             <div
                 // either  move it off screen by its height or keep it the same
                 className={
