@@ -29,7 +29,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
   // db logic goes HERE
   let result = parseInt(id);
-  let resp = new Response();
+
   if (!result || result < 0) {
     return Response.json({ message: "Invalid Post ID"}, {status: 500})
   // checking if id is in posts
@@ -41,7 +41,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     // validating data
     let parsedData = PostDataSchema.parse(json)
     // returns as readable json for frontend
-    return Response.json(parsedData);
+    return Response.json(parsedData, {status: 200});
 
   } else {
     return Response.json({ message: "Post does not exist"}, {status: 500})

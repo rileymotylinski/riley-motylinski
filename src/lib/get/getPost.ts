@@ -9,7 +9,6 @@ export async function getPost(id: string): Promise<Result<PostData>> {
     const destination = new URL(id, "http://localhost:3000/api/posts/")
     const res = await fetch(destination);
 
-
     // getting json, returning as PostData because we validated in /api/posts/route.ts
     if (res.ok) {
         return {ok: true, data: await res.json()};
