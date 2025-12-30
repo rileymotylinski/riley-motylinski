@@ -6,7 +6,7 @@ import type { FC } from "react";
 
 export const Footer: FC = () => {
     return (
-        <div className="flex fixed justify-center h-27 w-full p-5 bg-background border-white border-t">
+        <div className="flex fixed justify-center h-27 w-full p-5 bg-background border-white border-t z-0">
             <div className="grid grid-cols-2 grid-rows-1 gap-4 place-items-center">
             <div>
                 <a href="https://github.com/rileymotylinski">

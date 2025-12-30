@@ -1,6 +1,5 @@
 'use client'
  
-import { useParams } from 'next/navigation'
 import { PostData } from "@/src/app/api/posts/[id]/route";
 import type { FC } from "react";
 

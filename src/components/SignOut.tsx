@@ -6,6 +6,7 @@ export function SignOut() {
       action={async () => {
         "use server"
         await signOut()
+        // TODO: Redirect on logout
       }}
     >
       <button type="submit">Sign Out</button>

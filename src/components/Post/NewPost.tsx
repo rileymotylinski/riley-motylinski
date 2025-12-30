@@ -1,7 +1,5 @@
 "use client";
 
-import { getPost } from "@/src/lib/get/getPost";
-import { createPost } from "@/src/lib/post/createPost";
 import type { FC } from "react";
 
 export const NewPost: FC = () => {
