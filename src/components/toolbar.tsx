@@ -31,7 +31,7 @@ export const Toolbar: FC = () => {
                 }
             >
                 <div className="w-1/2">
-                    <div><a href="http://localhost:3000">Riley Motylinski's Website</a></div>
+                    <div><a href={process.env.NEXT_PUBLIC_HOME_URL!}>Riley Motylinski's Website</a></div>
                     <PostSearch />
                 </div>
 

@@ -8,8 +8,7 @@ export async function proxy(request: NextRequest) {
     let session = await auth();
     
     if (!session?.user) {
-        
-        return NextResponse.redirect("http://localhost:3000")
+      return NextResponse.redirect(process.env.NEXT_PUBLIC_HOME_URL!)
     }
    return NextResponse.next();
 }
