@@ -10,15 +10,11 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --color-background: #212121;
-  --color-background-light: #212119;
+  --color-background: #020909;
+  --color-background-light: #0e1116;
   --color-taupe: #987D7C;
   --color-lilac-ash: #A09CB0;
   --color-powder-blue: #A3B9C9;
  
 }
 
-body {
-  color: white;
-  background: #212119;
-}

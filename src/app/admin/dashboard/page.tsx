@@ -10,8 +10,17 @@ export default async function Dashboard() {
     
     return(
         <>
-            <AdminPostFeed />
-            <SignOut />
+            <div> <SignOut /></div>
+
+            <div className="flex justify-center">
+                <div className="grid grid-cols-1 place-content-center">
+                    <AdminPostFeed />
+                
+                
+                </div>
+                
+            </div>
+            
         </>
     )
     

@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-off-white"
+      <body className="bg-background-light text-white"
         
       >
         <Toolbar />
