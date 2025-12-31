@@ -1,9 +1,7 @@
 import { PostData } from "@/src/app/api/posts/[id]/route";
+import { Result } from "../result";
 
-type Result<T> = {
-    ok: boolean,
-    data: T
-}
+
 
 export async function getPost(id: string): Promise<Result<PostData>> {
     const destination = new URL(id, "http://localhost:3000/api/posts/")

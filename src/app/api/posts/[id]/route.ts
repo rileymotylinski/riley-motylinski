@@ -62,3 +62,8 @@ export async function POST(request: NextRequest) {
   })
   
 }
+
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  let { id } = await params
+  return Response.json({message: `deleted post ${id}`}, {status: 200})
+}
