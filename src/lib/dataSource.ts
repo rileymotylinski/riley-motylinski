@@ -9,11 +9,17 @@ export const AppDataSource = async () => {
   }
 
   dataSource = new DataSource({
-    type: 'postgres',
-    url: process.env.DATABASE_URL,
-    entities: [Post],
-    synchronize: false, 
+    type: "postgres",
+    host: "localhost",
+    port: 5432,
+    username: process.env.NEXT_PUBLIC_POSTGRES_USER,
+    password: process.env.NEXT_PUBLIC_POSTGRES_PASSWORD,
+    database: "postgres",
+    synchronize: false,
     logging: false,
+    entities: [Post],
+    subscribers: [],
+    migrations: [],
   })
 
   await dataSource.initialize()

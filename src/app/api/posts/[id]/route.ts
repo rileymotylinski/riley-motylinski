@@ -1,3 +1,5 @@
+import { Post } from "@/src/entities/Post";
+import { AppDataSource } from "@/src/lib/dataSource";
 import { NextRequest } from "next/server";
 import * as z from "zod"; 
 
@@ -27,26 +29,32 @@ export const data: PostData[] = [
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   let { id } = await params;
 
-  // db logic goes HERE
-  let result = parseInt(id);
-
-  if (!result || result < 0) {
+  // valid post id
+  try {
+    parseInt(id)
+  } catch {
     return Response.json({ message: "Invalid Post ID"}, {status: 500})
-  // checking if id is in posts
-  } else if (result > 0 && result <= data.length ) {
-    // have to parse as json, zod can't parse strings
-    // pretty roundabout right now, but will be useful later when our db returns strings
-    let json = JSON.parse(JSON.stringify(data[result-1]));
-
-    // validating data
-    let parsedData = PostDataSchema.parse(json)
-    // returns as readable json for frontend
-    return Response.json(parsedData, {status: 200});
-
-  } else {
-    return Response.json({ message: "Post does not exist"}, {status: 500})
   }
-  
+
+  const db = await AppDataSource()
+  const repo = db.getRepository(Post)
+  const post = await repo.find({
+    where: {
+      id: parseInt(id)
+    }
+  })
+    
+  // no posts exist with the id
+  if (post.length == 0) return Response.json({ message: "Post does not exist"}, {status: 500});
+  // post id should be unique. Want to figure out what is happening here.
+  if (post.length > 1) throw new Error("MULTIPLE POSTS FOUND")
+
+  // validating data
+  console.log()
+  // don't know if we really need to parse here, but will anyways
+  let parsedData = PostDataSchema.parse(post[0])
+  // returns as readable json for frontend
+  return Response.json(parsedData, {status: 200});
 }
 
 export async function POST(request: NextRequest) {
