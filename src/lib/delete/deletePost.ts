@@ -13,6 +13,4 @@ export async function deletePost(id: number): Promise<Result<string>> {
     } else {
         return {ok: false, data: "unable to delete post"}
     }
-    
-    
 }

@@ -49,3 +49,27 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   return Response.json(post[0], {status: 200});
 }
 
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  let { id } = await params;
+  
+  try {
+    parseInt(id)
+  } catch {
+    return Response.json({ message: "Invalid Post ID"}, {status: 500})
+  }
+
+  const db = await AppDataSource()
+  const repo = db.getRepository(Post)
+
+  const post = await repo.delete(
+    {id: parseInt(id)}
+  )
+
+  if (!post) {
+    return Response.json({ message: "no post found"}, {status : 500})
+  }
+
+  return Response.json({ message: "post successfully deleted"}, { status: 200 })
+
+}
+

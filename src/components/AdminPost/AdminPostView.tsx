@@ -4,24 +4,38 @@ import { FC, useEffect, useState } from "react";
 import { AdminPostPreview } from "./AdminPostPreview";
 import { PostData } from "@/src/app/api/posts/[id]/route";
 import { getPosts } from "@/src/lib/get/getPosts";
+import { deletePost } from "@/src/lib/delete/deletePost";
+
 
 export const AdminPostView: FC = () => {
     const [posts, setPosts] = useState<PostData[]>([]);
     const [err, setErr] = useState<string>("");
 
-    useEffect(() => {
-        async function updatePosts() {
-            // TODO: update this to get the most recent posts, 10 posts, etc.
-            let resp = await getPosts();
+    async function updatePosts() {
+        // TODO: update this to get the most recent posts, 10 posts, etc.
+        let resp = await getPosts();
 
-            if (resp.ok) {
-                setPosts(resp.data);
-            } else {
-                setErr("Unable to fetch posts");
-            }
+        if (resp.ok) {
+            setPosts(resp.data);
+        } else {
+            setErr("Unable to fetch posts");
         }
+    }
+
+    // deletes a post from the db and removes it from the useState array
+    // TODO [optimization] : could locate post in array rather than refetching everything.
+    // could be a problem post num is large?
+    async function deletePostUpdate(id: number) {
+        // removes post from db
+        await deletePost(id);
+        // updates interface
+        await updatePosts();
+
+    }
+
+    useEffect(() => {
+        // on load, fetch posts
         updatePosts();
-        
     },[]);
 
     if (err !== "") {
@@ -37,17 +51,14 @@ export const AdminPostView: FC = () => {
             <>
                 <div className="grid grid-cols-5">
                     {posts.map((post: PostData, index) => (
-                        <AdminPostPreview post={post} key={`${index}-${post.id}`} />
+                        <AdminPostPreview post={post} deletePost={deletePostUpdate} key={`${index}-${post.id}`} />
                     ))}
                     <span className="text-3xl bg-background flex items-center justify-center rounded-full h-18 w-18 hover:bg-background/50 transition-colors duration-100">
                         <span className="flex items-center justify-center">
                             +
                         </span>
                     </span>
-                </div>
-                
-    
-            
+                </div> 
             </>
         )
     } else {

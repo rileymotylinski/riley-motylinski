@@ -1,12 +1,13 @@
 import { useState, type FC } from "react";
 import { PostData } from "../../app/api/posts/[id]/route";
-import { deletePost } from "@/src/lib/delete/deletePost";
+
 
 type Props = {
-    post: PostData
+    post: PostData,
+    deletePost: (id: number) => void, // possible to confuse with deletePost in /lib/delete
 }
 
-export const AdminPostPreview: FC<Props> = ({ post }) => {
+export const AdminPostPreview: FC<Props> = ({ post, deletePost }) => {
 
     const [toolbarOpen, setToolBarOpen] = useState(false);
     return(
