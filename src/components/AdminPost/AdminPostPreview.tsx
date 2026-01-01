@@ -1,6 +1,6 @@
 import { useState, type FC } from "react";
 import { PostData } from "../../app/api/posts/[id]/route";
-import { deletePost } from "@/src/lib/delete/delete";
+import { deletePost } from "@/src/lib/delete/deletePost";
 
 type Props = {
     post: PostData
@@ -22,8 +22,6 @@ export const AdminPostPreview: FC<Props> = ({ post }) => {
                     </div>
                 </div>
             </span>
-            
-
         </>
     )
 }

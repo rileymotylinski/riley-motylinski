@@ -12,6 +12,16 @@ export const PostFeed: FC = async () => {
         }
         
     }
+
+    if (posts.length == 0) {
+        return (
+            <>
+                <div>
+                    No posts to display right now
+                </div>
+            </>
+        )
+    }
     
     return <div className="w-1/2">
         {posts.map((post: PostData, index) => (
