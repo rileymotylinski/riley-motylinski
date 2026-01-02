@@ -49,9 +49,11 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
   const db = await AppDataSource()
   const repo = db.getRepository(Post)
 
+  console.log(guid)
   const post = await repo.delete(
     {guid: guid}
   )
+  console.log(post.affected)
 
   if (!post) {
     return Response.json({ message: "no post found"}, {status : 500})

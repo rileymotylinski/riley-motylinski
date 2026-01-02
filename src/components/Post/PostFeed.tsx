@@ -1,17 +1,11 @@
 import type { FC } from "react";
 import { PostPreview } from "./PostPreview";
-import { getPost } from "@/src/lib/get/getPost";
-import { PostData } from "@/src/app/api/posts/[id]/route";
+import { PostData } from "@/src/app/api/posts/[guid]/route";
+import { getPosts } from "@/src/lib/get/getPosts";
 
 export const PostFeed: FC = async () => {
-    let posts: PostData[] = [];
-    for (let i = 1; i <= 3; i++) {
-        const res = await getPost(i.toString());
-        if (res.ok) {
-            posts.push(res.data);
-        }
-        
-    }
+    let posts: PostData[] = (await getPosts(3)).data;
+    
 
     if (posts.length == 0) {
         return (

@@ -1,4 +1,4 @@
-import { PostData } from "@/src/app/api/posts/[id]/route";
+import { PostData } from "@/src/app/api/posts/[guid]/route";
 import { Result } from "../result";
 
 export async function getPost(guid: string): Promise<Result<PostData>> {

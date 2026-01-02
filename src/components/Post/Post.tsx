@@ -1,6 +1,6 @@
 'use client'
  
-import { PostData } from "@/src/app/api/posts/[id]/route";
+import { PostData } from "@/src/app/api/posts/[guid]/route";
 import type { FC } from "react";
 
 type Props = {

@@ -1,4 +1,4 @@
-import { PostData } from "@/src/app/api/posts/[id]/route";
+import { PostData } from "@/src/app/api/posts/[guid]/route";
 
 export async function createPost(post: PostData): Promise<Response> {
     const destination = new URL("/api/posts",process.env.NEXT_PUBLIC_HOME_URL);

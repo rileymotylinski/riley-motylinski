@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useState } from "react";
 import { AdminPostPreview } from "./AdminPostPreview";
-import { PostData } from "@/src/app/api/posts/[id]/route";
+import { PostData } from "@/src/app/api/posts/[guid]/route";
 import { getPosts } from "@/src/lib/get/getPosts";
 import { deletePost } from "@/src/lib/delete/deletePost";
 
@@ -14,7 +14,7 @@ export const AdminPostView: FC = () => {
     async function updatePosts() {
         // TODO: update this to get the most recent posts, 10 posts, etc.
         let resp = await getPosts();
-
+        
         if (resp.ok) {
             setPosts(resp.data);
         } else {

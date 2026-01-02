@@ -1,15 +1,11 @@
+import { UUID } from 'crypto'
 import { Entity, Column, PrimaryColumn, BeforeInsert } from 'typeorm'
-import { randomUUID } from 'crypto';
+
 
 @Entity()
 export class Post {
-    @PrimaryColumn()
+    @PrimaryColumn({"type" : "uuid"})
     guid!: string
-
-    @BeforeInsert()
-    setGuid() {
-        this.guid = randomUUID();
-    }
 
     @Column()
     title!: string

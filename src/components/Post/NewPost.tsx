@@ -1,5 +1,5 @@
 "use client";
-import { PostData } from "@/src/app/api/posts/[id]/route";
+import { PostData } from "@/src/app/api/posts/[guid]/route";
 import { createPost } from "@/src/lib/post/createPost";
 
 import type { FC } from "react";

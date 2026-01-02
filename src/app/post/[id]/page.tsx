@@ -5,7 +5,7 @@ import { getPost } from "@/src/lib/get/getPost";
 import { useEffect, useState } from "react";
 
 import { usePathname } from 'next/navigation';  
-import { PostData } from "../../api/posts/[id]/route";
+import { PostData } from "../../api/posts/[guid]/route";
 
 
 // dynamic routing in modern nextjs requires nested folders with search params in brackets

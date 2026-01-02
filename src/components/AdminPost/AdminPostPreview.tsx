@@ -1,5 +1,5 @@
 import { useState, type FC } from "react";
-import { PostData } from "../../app/api/posts/[id]/route";
+import { PostData } from "../../app/api/posts/[guid]/route";
 
 
 type Props = {
