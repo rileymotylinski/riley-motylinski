@@ -5,7 +5,7 @@ import * as z from "zod";
 
 // what we expect to come from the database
 export const PostDataSchema = z.object({
-    id: z.number(),
+    guid: z.string(),
     title: z.string(),
     tags: z.array(z.string()),
     date: z.iso.datetime(),
@@ -19,21 +19,15 @@ export type PostData = z.infer<typeof PostDataSchema>;
 // this keeps our code generic as we add more to the incoming request, it remains the same
 // as we say "I only care about these members and nothing else"
 // we also destructure right here to only get the params field from the full parent element
-export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  let { id } = await params;
-
-  // valid post id
-  try {
-    parseInt(id)
-  } catch {
-    return Response.json({ message: "Invalid Post ID"}, {status: 500})
-  }
+export async function GET(request: NextRequest, { params }: { params: Promise<{ guid: string }> }) {
+  let { guid } = await params;
 
   const db = await AppDataSource()
+
   const repo = db.getRepository(Post)
   const post = await repo.find({
     where: {
-      id: parseInt(id)
+      guid: guid
     }
   })
     
@@ -49,20 +43,14 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   return Response.json(post[0], {status: 200});
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  let { id } = await params;
-  
-  try {
-    parseInt(id)
-  } catch {
-    return Response.json({ message: "Invalid Post ID"}, {status: 500})
-  }
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ guid: string }> }) {
+  let { guid } = await params;
 
   const db = await AppDataSource()
   const repo = db.getRepository(Post)
 
   const post = await repo.delete(
-    {id: parseInt(id)}
+    {guid: guid}
   )
 
   if (!post) {

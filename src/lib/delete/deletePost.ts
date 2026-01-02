@@ -1,7 +1,7 @@
 import { Result } from "../result";
 
-export async function deletePost(id: number): Promise<Result<string>> {
-    const destination = new URL(`/api/posts/${id}`, process.env.NEXT_PUBLIC_HOME_URL!)
+export async function deletePost(guid: string): Promise<Result<string>> {
+    const destination = new URL(`/api/posts/${guid}`, process.env.NEXT_PUBLIC_HOME_URL!)
     const resp = await fetch(destination, {
         method: "DELETE",
         headers: {"Content-Type": "application/json"}

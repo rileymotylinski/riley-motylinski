@@ -4,7 +4,7 @@ import { PostData } from "../../app/api/posts/[id]/route";
 
 type Props = {
     post: PostData,
-    deletePost: (id: number) => void, // possible to confuse with deletePost in /lib/delete
+    deletePost: (guid: string) => void, // possible to confuse with deletePost in /lib/delete
 }
 
 export const AdminPostPreview: FC<Props> = ({ post, deletePost }) => {
@@ -18,7 +18,7 @@ export const AdminPostPreview: FC<Props> = ({ post, deletePost }) => {
                     <div className="rounded-xl text-center bg-background-light duration-200 opacity-0 group-hover:opacity-100 group-hover:-translate-y-40 transition-all flex pl-0.5 pr-0.5">
                         
                         <button className="w-1/2 text-center hover:bg-blue-700 rounded-xl">edit</button>
-                        <button className="w-1/2 text-center hover:bg-blue-700 rounded-xl" onClick={async () => await deletePost(post.id)}>delete</button>
+                        <button className="w-1/2 text-center hover:bg-blue-700 rounded-xl" onClick={async () => deletePost(post.guid)}>delete</button>
                 
                     </div>
                 </div>

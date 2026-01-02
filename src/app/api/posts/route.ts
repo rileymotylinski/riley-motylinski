@@ -20,9 +20,15 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
+    const searchParams = request.nextUrl.searchParams;
+
     const db = await AppDataSource();
     const repo = db.getRepository(Post);
+    const posts = await repo.find();
+    // essentially checking if it exists as an integer; if it doesn't then simply return the whole array
+    const numPosts = parseInt(searchParams.get("num") ?? "NaN") ?? posts.length;
     
+
     // SELECT * FROM posts
-    return Response.json({"posts" : JSON.stringify(await repo.find())}, {status: 200})
+    return Response.json({"posts" : JSON.stringify(posts.slice(0,numPosts))}, {status: 200})
 }

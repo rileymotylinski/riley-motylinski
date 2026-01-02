@@ -25,7 +25,7 @@ export const PostFeed: FC = async () => {
     
     return <div className="w-1/2">
         {posts.map((post: PostData, index) => (
-            <div key={`${index}-${post.id}`}>
+            <div key={`${index}-${post.guid}`}>
                 <PostPreview post={post} />
             </div>
         ))}

@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import { DataSource } from 'typeorm'
 import { Post } from "@/src/entities/Post"
 
@@ -15,7 +16,7 @@ export const AppDataSource = async () => {
     username: process.env.NEXT_PUBLIC_POSTGRES_USER,
     password: process.env.NEXT_PUBLIC_POSTGRES_PASSWORD,
     database: "postgres",
-    synchronize: false,
+    synchronize: true,
     logging: false,
     entities: [Post],
     subscribers: [],

@@ -25,9 +25,9 @@ export const AdminPostView: FC = () => {
     // deletes a post from the db and removes it from the useState array
     // TODO [optimization] : could locate post in array rather than refetching everything.
     // could be a problem post num is large?
-    async function deletePostUpdate(id: number) {
+    async function deletePostUpdate(guid: string) {
         // removes post from db
-        await deletePost(id);
+        await deletePost(guid);
         // updates interface
         await updatePosts();
 
@@ -51,13 +51,17 @@ export const AdminPostView: FC = () => {
             <>
                 <div className="grid grid-cols-5">
                     {posts.map((post: PostData, index) => (
-                        <AdminPostPreview post={post} deletePost={deletePostUpdate} key={`${index}-${post.id}`} />
+                        <AdminPostPreview post={post} deletePost={deletePostUpdate} key={`${index}-${post.guid}`} />
                     ))}
-                    <span className="text-3xl bg-background flex items-center justify-center rounded-full h-18 w-18 hover:bg-background/50 transition-colors duration-100">
-                        <span className="flex items-center justify-center">
-                            +
+                    <div className="grid place-items-center">
+                        <span className="text-3xl bg-background flex items-center justify-center rounded-full h-18 w-18 hover:bg-background/50 transition-colors duration-100">
+                            
+                                +
+                            
+                            
+                    
                         </span>
-                    </span>
+                    </div>
                 </div> 
             </>
         )

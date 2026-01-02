@@ -1,9 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
+import { Entity, Column, PrimaryColumn, BeforeInsert } from 'typeorm'
+import { randomUUID } from 'crypto';
 
 @Entity()
 export class Post {
-    @PrimaryGeneratedColumn()
-    id!: number
+    @PrimaryColumn()
+    guid!: string
+
+    @BeforeInsert()
+    setGuid() {
+        this.guid = randomUUID();
+    }
 
     @Column()
     title!: string
@@ -16,4 +22,6 @@ export class Post {
 
     @Column()
     date!: Date
+
+   
 }
