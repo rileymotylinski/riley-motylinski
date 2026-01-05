@@ -5,6 +5,9 @@ import { Post } from "@/src/entities/Post";
 import { NextAuthRequest } from "next-auth";
 import { auth } from "@/auth";
 
+
+
+
 export const POST = auth(async function POST(request: NextAuthRequest) {
     if (!request.auth) return Response.json({message: "Unauthorized"}, {status: 401})
     // retrieving data from request
@@ -23,6 +26,8 @@ export const POST = auth(async function POST(request: NextAuthRequest) {
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
+
+    
 
     const db = await AppDataSource();
     const repo = db.getRepository(Post);
