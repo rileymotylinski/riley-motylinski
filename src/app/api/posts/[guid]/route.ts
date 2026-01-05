@@ -61,7 +61,6 @@ export const DELETE = auth(async function DELETE(request: NextAuthRequest, { par
   const db = await AppDataSource()
   const repo = db.getRepository(Post)
 
-
   const post = await repo.delete(
     {guid: guid}
   )

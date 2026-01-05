@@ -4,7 +4,7 @@ import { Editor } from "@tiptap/react";
 import { FC, useState } from "react";
 import { updatePost } from "@/src/lib/put/updatePost";
 import { redirect } from "next/navigation";
-import { PostCreationManager } from "@/src/components/PostCreationManager";
+import { PostManager } from "@/src/components/PostManager";
 import { PostData } from "../app/api/posts/[guid]/route";
 
 type Props = {
@@ -64,7 +64,7 @@ export const PostEditorManger: FC<Props> = ({ initialPost }) => {
     return (
         <>
             <div className="flex justify-center">
-                <PostCreationManager handleSubmit={handleClick} initalTitle={initialPost.title} initalContent={initialPost.content} />
+                <PostManager handleSubmit={handleClick} initalTitle={initialPost.title} initalContent={initialPost.content} />
             </div>
         </>
     )
