@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/env": "^16.1.1",
+    "@tiptap/markdown": "^3.14.0",
     "@tiptap/pm": "^3.14.0",
     "@tiptap/react": "^3.14.0",
     "@tiptap/starter-kit": "^3.14.0",
@@ -20,6 +21,7 @@
     "postcss": "^8.5.6",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-markdown": "^10.1.0",
     "reflect-metadata": "^0.2.2",
     "swr": "^2.3.8",
     "typeorm": "^0.3.28",

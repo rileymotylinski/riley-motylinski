@@ -1,6 +1,5 @@
 "use client"
 
-
 import { Editor } from "@tiptap/react";
 import { FC, useState } from "react";
 import { updatePost } from "@/src/lib/put/updatePost";
@@ -19,7 +18,7 @@ export const PostEditorManger: FC<Props> = ({ initialPost }) => {
 
     async function handleClick(title: Editor, content: Editor) {
         const postTitle = title?.getText();
-        const postContent = content?.getText();
+        const postContent = content?.getMarkdown();
 
         if (!postTitle || !postContent ) {
             setErr("missing post content");

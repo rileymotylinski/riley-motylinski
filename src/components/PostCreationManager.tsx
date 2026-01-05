@@ -1,10 +1,11 @@
 'use client'
 
-import { useEditor, EditorContent } from '@tiptap/react'
+import { useEditor, EditorContent, markdown } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { FC, useState } from 'react'
 import { EditorMenuBar } from './EditorMenuBar'
 import type { Editor } from '@tiptap/core'
+import { Markdown } from '@tiptap/markdown'
 
 type Props = {
   initalTitle: string,
@@ -29,7 +30,7 @@ export const PostCreationManager: FC<Props> = ({ initalTitle, initalContent, han
 
   // managing content in body
   const body = useEditor({
-    extensions: [StarterKit],
+    extensions: [StarterKit, Markdown],
     content: initalContent,
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,

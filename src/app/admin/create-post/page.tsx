@@ -12,13 +12,13 @@ export default async function CreatePost() {
 
     const session = await auth();
     if (!session?.user) return null;
-    
+
     const [err, setErr] = useState("");
     const [loading, setLoading] = useState(false);
 
     async function handleClick(title: Editor, content: Editor) {
         const postTitle = title?.getText();
-        const postContent = content?.getText();
+        const postContent = content?.getMarkdown();
 
         if (!postTitle || !postContent) {
             setErr("missing post content");

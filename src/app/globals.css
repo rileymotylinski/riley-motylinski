@@ -20,3 +20,16 @@
  
 }
 
+.tiptap h1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.tiptap h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.tiptap p {
+  margin: 0.5rem 0;
+}
