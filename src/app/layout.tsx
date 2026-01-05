@@ -19,7 +19,10 @@ export default function RootLayout({
         
       >
         <Toolbar />
-        {children}
+        <div>
+          {children}
+        </div>
+        
         <Footer />
       </body>
     </html>

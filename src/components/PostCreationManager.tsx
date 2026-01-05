@@ -4,37 +4,20 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { FC, useState } from 'react'
 import { EditorMenuBar } from './EditorMenuBar'
-import { PostData } from '../app/api/posts/[guid]/route'
-import { createPost } from '../lib/post/createPost'
+import type { Editor } from '@tiptap/core'
 
-export const Tiptap: FC = () => {
-  const [err, setErr] = useState("");
-  const [loading, setLoading] = useState(false);
-  async function handleClick() {
-    const postTitle = title?.getText();
-    const postContent = body?.getText();
+type Props = {
+  initalTitle: string,
+  initalContent: string,
+  handleSubmit: (titleEditor: Editor, contentEditor: Editor) => Promise<void>
+}
 
-    if (!postTitle || !postContent) {
-      setErr("missing post content");
-      return;
-    }
-
-    const post: PostData = {
-      guid: crypto.randomUUID(),
-      title: postTitle,
-      content: postContent,
-      tags: ["test-tag"],
-      date: new Date().toISOString()
-    }
-    setLoading(true);
-    await createPost(post);
-    setLoading(false);
-  }
+export const PostCreationManager: FC<Props> = ({ initalTitle, initalContent, handleSubmit }) => {
 
   // managing title
   const title = useEditor({
     extensions: [StarterKit],
-    content: 'This is a title',
+    content: initalTitle,
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
     editorProps: {
@@ -47,7 +30,7 @@ export const Tiptap: FC = () => {
   // managing content in body
   const body = useEditor({
     extensions: [StarterKit],
-    content: '<p>Hello World! 🌎️</p>',
+    content: initalContent,
     // Don't render immediately on the server to avoid SSR issues
     immediatelyRender: false,
     editorProps: {
@@ -57,8 +40,14 @@ export const Tiptap: FC = () => {
     }
   })
 
-  if (loading) {
-    return <div>loading...</div>
+  if (!title || !body) {
+    return(
+      <>
+        <div>
+          Unable to create post editors. Please try refreshing the page.
+        </div>
+      </>
+    )
   }
 
   return (<>
@@ -72,8 +61,7 @@ export const Tiptap: FC = () => {
         
       </div>
       
-      <button onClick={() => handleClick()}>Post Content</button>
-      <div>{err}</div>
+      <button onClick={() => handleSubmit(title, body)}>Post Content</button>
     </div>
     
   </>)

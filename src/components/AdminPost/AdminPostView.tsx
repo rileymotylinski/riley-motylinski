@@ -8,8 +8,6 @@ import { deletePost } from "@/src/lib/delete/deletePost";
 import { redirect } from 'next/navigation'
  
 
-
-
 export const AdminPostView: FC = () => {
     const [posts, setPosts] = useState<PostData[]>([]);
     const [err, setErr] = useState<string>("");
@@ -58,7 +56,7 @@ export const AdminPostView: FC = () => {
                     ))}
                     <div className="grid place-items-center">
                         <span className="text-3xl bg-background flex items-center justify-center rounded-full h-18 w-18 hover:bg-background/50 transition-colors duration-100">  
-                            <button onClick={() => redirect(process.env.NEXT_PUBLIC_HOME_URL!)}>+</button>
+                            <button onClick={() => redirect(new URL("/admin/create-post",process.env.NEXT_PUBLIC_HOME_URL!).toString())}>+</button>
                         </span>
                     </div>
                 </div> 
