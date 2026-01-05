@@ -1,6 +1,9 @@
+import { auth } from "@/auth";
 import { Post } from "@/src/entities/Post";
 import { AppDataSource } from "@/src/lib/dataSource";
-import { NextRequest } from "next/server";
+import { NextAuthRequest } from "next-auth";
+import { cookies } from "next/headers";
+
 import * as z from "zod"; 
 
 // what we expect to come from the database
@@ -19,7 +22,12 @@ export type PostData = z.infer<typeof PostDataSchema>;
 // this keeps our code generic as we add more to the incoming request, it remains the same
 // as we say "I only care about these members and nothing else"
 // we also destructure right here to only get the params field from the full parent element
-export async function GET(request: NextRequest, { params }: { params: Promise<{ guid: string }> }) {
+// have to use NextAuthRequest so req.auth exists
+export async function GET(request: NextAuthRequest, { params }: { params: Promise<{ guid: string }> }) {
+  
+  if (!request.auth) return Response.json({ message: "Not authenticated" }, { status: 401 });
+
+  
   let { guid } = await params;
 
   const db = await AppDataSource()
@@ -43,7 +51,10 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
   return Response.json(post[0], {status: 200});
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: Promise<{ guid: string }> }) {
+export const DELETE = auth(async function DELETE(request: NextAuthRequest, { params }: { params: Promise<{ guid: string }> }) {
+  console.log(await cookies())
+  if (!request.auth) return Response.json({ message: "Not authenticated" }, { status: 401 });
+
   let { guid } = await params;
 
   const db = await AppDataSource()
@@ -62,10 +73,12 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
 
   return Response.json({ message: "post successfully deleted"}, { status: 200 })
 
-}
+})
 
 
-export async function PUT(request: NextRequest, { params }: { params: Promise<{ guid: string }> }) {
+export const PUT = auth(async function PUT(request: NextAuthRequest, { params }: { params: Promise<{ guid: string }> }) {
+  if (!request.auth) return Response.json({ message: "Not authenticated" }, { status: 401 });
+
   let { guid } = await params;
 
   const db = await AppDataSource();
@@ -92,4 +105,4 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
   
   return Response.json({message: "post successfully updated"}, {status: 200});
-}
+})

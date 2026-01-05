@@ -1,11 +1,12 @@
 import { Result } from "../result";
 
 export async function deletePost(guid: string): Promise<Result<string>> {
+
     const destination = new URL(`/api/posts/${guid}`, process.env.NEXT_PUBLIC_HOME_URL!)
-    console.log(destination.pathname)
+    
     const resp = await fetch(destination, {
         method: "DELETE",
-        headers: {"Content-Type": "application/json"}
+        headers: {"Content-Type": "application/json"},
     })
 
     // TODO : verify w/ zod?
