@@ -49,12 +49,13 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
   const db = await AppDataSource()
   const repo = db.getRepository(Post)
 
-  console.log(guid)
+
   const post = await repo.delete(
     {guid: guid}
   )
   console.log(post.affected)
 
+  // TODO [fix]: This does not do what I want it to do
   if (!post) {
     return Response.json({ message: "no post found"}, {status : 500})
   }
@@ -63,3 +64,32 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
 
 }
 
+
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ guid: string }> }) {
+  let { guid } = await params;
+
+  const db = await AppDataSource();
+  const repo = db.getRepository(Post);
+
+  console.log(request.body);
+
+  const post = PostDataSchema.parse(await request.json());
+  let foundPosts = await repo.find({
+    where: {
+      guid: guid
+    }
+  })
+
+  // awful updating. TODO [fix]: make this less gross
+  foundPosts[0] = {
+    guid: post.guid,
+    title: post.title,
+    content: post.content,
+    tags: post.tags,
+    date: new Date()
+  };
+  repo.save(foundPosts[0]);
+
+  
+  return Response.json({message: "post successfully updated"}, {status: 200});
+}

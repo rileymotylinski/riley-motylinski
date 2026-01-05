@@ -1,17 +1,18 @@
-"use client";
+"use client"
 
-import { PostCreationManager } from "@/src/components/PostCreationManager";
-import { createPost } from "@/src/lib/post/createPost";
+
+import { Editor } from "@tiptap/react";
+import { FC, useState } from "react";
+import { updatePost } from "@/src/lib/put/updatePost";
 import { redirect } from "next/navigation";
-import { useState } from "react";
-import { PostData } from "../../api/posts/[guid]/route";
-import type { Editor } from '@tiptap/core'
-import { auth } from "@/auth";
+import { PostCreationManager } from "@/src/components/PostCreationManager";
+import { PostData } from "../app/api/posts/[guid]/route";
 
-export default async function CreatePost() {
+type Props = {
+    initialPost: PostData
+}
 
-    const session = await auth();
-    if (!session?.user) return null;
+export const PostEditorManger: FC<Props> = ({ initialPost }) => {
     
     const [err, setErr] = useState("");
     const [loading, setLoading] = useState(false);
@@ -20,21 +21,21 @@ export default async function CreatePost() {
         const postTitle = title?.getText();
         const postContent = content?.getText();
 
-        if (!postTitle || !postContent) {
+        if (!postTitle || !postContent ) {
             setErr("missing post content");
             return;
         }
 
         const post: PostData = {
-            guid: crypto.randomUUID(),
+            guid: initialPost.guid,
             title: postTitle,
             content: postContent,
-            tags: ["test-tag"],
-            date: new Date().toISOString()
+            tags: initialPost.tags, // TODO [feat] : add tag system
+            date: new Date().toISOString() // TODO [feat] : add updatedOn field
         }
 
         setLoading(true);
-        await createPost(post);
+        await updatePost(post);
         setLoading(false);
         
         redirect(new URL("/admin/dashboard", process.env.NEXT_PUBLIC_HOME_URL).toString())
@@ -64,8 +65,10 @@ export default async function CreatePost() {
     return (
         <>
             <div className="flex justify-center">
-                <PostCreationManager handleSubmit={handleClick} initalTitle="This is the initial title" initalContent="This is the inital content" />
+                <PostCreationManager handleSubmit={handleClick} initalTitle={initialPost.title} initalContent={initialPost.content} />
             </div>
         </>
     )
+    
+     
 }
