@@ -2,8 +2,11 @@ import { NextRequest } from "next/server";
 import { PostDataSchema } from "./[guid]/route";
 import { AppDataSource } from "@/src/lib/dataSource";
 import { Post } from "@/src/entities/Post";
+import { NextAuthRequest } from "next-auth";
+import { auth } from "@/auth";
 
-export async function POST(request: NextRequest) {
+export const POST = auth(async function POST(request: NextAuthRequest) {
+    if (!request.auth) return Response.json({message: "Unauthorized"}, {status: 401})
     // retrieving data from request
     let response = await request.json()
 
@@ -16,7 +19,7 @@ export async function POST(request: NextRequest) {
     repo.insert(result);
 
     return Response.json({message: "succesfully made post"}, {status: 200})
-}
+})
 
 export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
