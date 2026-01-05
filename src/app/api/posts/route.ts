@@ -9,7 +9,6 @@ export async function POST(request: NextRequest) {
 
     // validating data
     let result = PostDataSchema.parse(response);
-    result.guid = crypto.randomUUID()
     // connecting to db
     const db = await AppDataSource();
     const repo = db.getRepository(Post);
