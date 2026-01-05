@@ -1,6 +1,5 @@
 import { auth } from "@/auth";
 import { AdminPostView } from "@/src/components/AdminPost/AdminPostView";
-import { Tiptap } from "@/src/components/TipTap";
 import { SignOut } from "@/src/components/SignOut";
 
 
@@ -18,7 +17,7 @@ export default async function Dashboard() {
                 <AdminPostView />
             </div>
             <div>
-                <Tiptap />
+         
             </div>
             
         </>

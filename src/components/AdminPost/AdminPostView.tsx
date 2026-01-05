@@ -5,6 +5,9 @@ import { AdminPostPreview } from "./AdminPostPreview";
 import { PostData } from "@/src/app/api/posts/[guid]/route";
 import { getPosts } from "@/src/lib/get/getPosts";
 import { deletePost } from "@/src/lib/delete/deletePost";
+import { redirect } from 'next/navigation'
+ 
+
 
 
 export const AdminPostView: FC = () => {
@@ -54,12 +57,8 @@ export const AdminPostView: FC = () => {
                         <AdminPostPreview post={post} deletePost={deletePostUpdate} key={`${index}-${post.guid}`} />
                     ))}
                     <div className="grid place-items-center">
-                        <span className="text-3xl bg-background flex items-center justify-center rounded-full h-18 w-18 hover:bg-background/50 transition-colors duration-100">
-                            
-                                +
-                            
-                            
-                    
+                        <span className="text-3xl bg-background flex items-center justify-center rounded-full h-18 w-18 hover:bg-background/50 transition-colors duration-100">  
+                            <button onClick={() => redirect(process.env.NEXT_PUBLIC_HOME_URL!)}>+</button>
                         </span>
                     </div>
                 </div> 

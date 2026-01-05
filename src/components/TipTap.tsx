@@ -3,6 +3,7 @@
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { FC } from 'react'
+import { EditorMenuBar } from './EditorMenuBar'
 
 export const Tiptap: FC = () => {
   const editor = useEditor({
@@ -12,6 +13,9 @@ export const Tiptap: FC = () => {
     immediatelyRender: false,
   })
 
-  return <EditorContent editor={editor} />
+  return (<>
+    <EditorContent editor={editor} />
+    <EditorMenuBar editor={editor} />
+  </>)
 }
 
