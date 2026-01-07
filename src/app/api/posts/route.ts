@@ -34,22 +34,43 @@ export async function GET(request: NextRequest) {
     // retrieve number of posts to get
     const searchParams = request.nextUrl.searchParams;
 
+    // essentially checking if it exists as an integer; if it doesn't then simply return the whole array
+    let postName = null;
+    
+    // if result exists as integer
+    if(searchParams.has("post-name")) {
+        postName = searchParams.get("post-name") ?? "";
+    }
+
+    console.log(searchParams)
     // connect to db
     const db = await AppDataSource();
     const repo = db.getRepository(Post);
 
-    // retrieves all posts in Post entity
-    const posts = await repo.find();
+    let posts = [];
+
+    if (postName) {
+        posts = await repo.find({
+            where: {
+                title: postName
+            }
+        })
+       
+    } else {
+        // retrieves all posts in Post entity
+        posts = await repo.find();
+    }
+    
 
     // essentially checking if it exists as an integer; if it doesn't then simply return the whole array
     let numPosts = posts.length;
-    const result = parseInt(searchParams.get("num") ?? "NaN")
+    const tempNumPosts = parseInt(searchParams.get("num") ?? "NaN")
     
     // if result exists as integer
-    if(result) {
-        numPosts = result;
+    if(tempNumPosts) {
+        numPosts = tempNumPosts;
     }
-  
+
     // SELECT * FROM posts
     return Response.json({"posts" : JSON.stringify(posts.slice(0,numPosts))}, {status: 200})
 }
