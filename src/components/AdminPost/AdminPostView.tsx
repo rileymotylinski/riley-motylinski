@@ -47,6 +47,7 @@ export const AdminPostView: FC = () => {
             </div>
         </>
         )
+    // posts exists
     } else if (posts.length > 0) {
         return (
             <>

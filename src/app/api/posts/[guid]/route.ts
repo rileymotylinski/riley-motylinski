@@ -83,9 +83,8 @@ export const PUT = auth(async function PUT(request: NextAuthRequest, { params }:
   const db = await AppDataSource();
   const repo = db.getRepository(Post);
 
-  console.log(request.body);
-
   const post = PostDataSchema.parse(await request.json());
+  // match guid to update
   let foundPosts = await repo.find({
     where: {
       guid: guid
@@ -100,8 +99,8 @@ export const PUT = auth(async function PUT(request: NextAuthRequest, { params }:
     tags: post.tags,
     date: new Date()
   };
+  // saving overwrites matching record?
   repo.save(foundPosts[0]);
-
   
   return Response.json({message: "post successfully updated"}, {status: 200});
 })

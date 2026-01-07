@@ -21,17 +21,18 @@ export const PostCreationManager: FC = () => {
         }
 
         const post: PostData = {
-            guid: crypto.randomUUID(),
-            title: postTitle,
-            content: postContent,
-            tags: ["test-tag"],
-            date: new Date().toISOString()
+            guid: crypto.randomUUID(), // generating guid
+            title: postTitle, // pulling post title
+            content: postContent, // pulling post content
+            tags: ["test-tag"], // TODO [feat] : tag system
+            date: new Date().toISOString() // automatically creating a post for today
         }
 
         setLoading(true);
         await createPost(post);
         setLoading(false);
         
+        // push back to /admin/dashboard when process is complete
         redirect(new URL("/admin/dashboard", process.env.NEXT_PUBLIC_HOME_URL).toString())
     }
 

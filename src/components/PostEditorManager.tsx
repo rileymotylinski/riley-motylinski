@@ -25,12 +25,13 @@ export const PostEditorManger: FC<Props> = ({ initialPost }) => {
             return;
         }
 
+        // updating information from post we are editing
         const post: PostData = {
             guid: initialPost.guid,
             title: postTitle,
             content: postContent,
             tags: initialPost.tags, // TODO [feat] : add tag system
-            date: new Date().toISOString() // TODO [feat] : add updatedOn field
+            date: new Date().toISOString() // TODO [feat] : add last updatedOn  field
         }
 
         setLoading(true);
