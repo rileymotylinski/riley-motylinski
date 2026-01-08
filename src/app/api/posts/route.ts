@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
         postName = searchParams.get("post-name") ?? "";
     }
 
-    console.log(searchParams)
+
     // connect to db
     const db = await AppDataSource();
     const repo = db.getRepository(Post);
@@ -61,6 +61,9 @@ export async function GET(request: NextRequest) {
         posts = await repo.find();
     }
     
+    if(posts.length == 0) {
+        return Response.json({status: 500})
+    }
 
     // essentially checking if it exists as an integer; if it doesn't then simply return the whole array
     let numPosts = posts.length;
