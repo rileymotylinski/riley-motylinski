@@ -7,26 +7,28 @@ export async function getPosts(numPosts=-1, postName=""): Promise<Result<PostDat
     if (numPosts > 0) {
         destination.searchParams.set("num", numPosts.toString())
     }
-    
+  
  
     if(postName != "") {
-        // TODO [fix]: clean search name
+        // TODO [fix]: clean post-name
         destination.searchParams.set("post-name", postName)
-        console.log("set post name")
     }
 
 
     const res = await fetch(destination);
     const json = await res.json();
+
     if (res.ok) {
         let result = JSON.parse(json?.posts)
-    
+
         // may not return PostData here, handled by 
         // viewing res.ok on client side
         return {ok: res.ok, data: result };
     } else {
-        return {ok: res.ok, data: null}
+        return {ok: res.ok, data: []}
     }
+    
+    
     
 }
 

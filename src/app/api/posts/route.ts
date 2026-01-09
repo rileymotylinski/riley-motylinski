@@ -62,7 +62,7 @@ export async function GET(request: NextRequest) {
     }
     
     if(posts.length == 0) {
-        return Response.json({status: 500})
+        return Response.json({ message: "Internal Server Error" },{status: 500})
     }
 
     // essentially checking if it exists as an integer; if it doesn't then simply return the whole array
